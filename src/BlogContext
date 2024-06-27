@@ -1,0 +1,35 @@
+import React, { createContext, useState } from 'react';
+
+const BlogContext = createContext({isModalOpen: false,
+    handleOpenModal: () => {},
+    handleCloseModal: () => {},
+    handleAddBlog: (newBlog) => {},
+    blog: null});
+
+const BlogProvider = ({children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blog, setBlog] = useState(null);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddBlog = (newBlog) => {
+    setBlog(newBlog);
+    handleCloseModal();
+  };
+
+  return (
+    <BlogContext.Provider value={{ isModalOpen, handleOpenModal, handleCloseModal, handleAddBlog, blog }}>
+      {children}
+    </BlogContext.Provider>
+  );
+};
+
+export default BlogContext; 
+export default BlogProvider;
+
